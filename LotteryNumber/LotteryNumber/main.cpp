@@ -11,20 +11,25 @@ void Swap(int& Number1, int& Number2)
 }
 
 void Sort(int* Numbers, int Count)
-{
-	int i = 0;
-	int j = 0;
-	int k = 0;
-	for (i = 0; i < Count; i++)
+{		// { 15, 7, 45, 10, 29, 31 } -> { 7, 10, 15, 29, 31, 45 }
+	for (int i = 0; i < Count; i++)
 	{
-		for (k = 0; k < Count - 1 - j; k++)
+		// i번째 값이 제일 좋은 후보라고 가정
+		int Best = i;
+
+		// 다른 후보와 비교를 통해 제일 좋은 후보를 찾아나선다
+		for (int j = i + 1; j < Count; j++)
 		{
-			if (Numbers[k] > Numbers[k + 1])
+			if (Numbers[j] < Numbers[Best])
 			{
-				Swap(Numbers[k], Numbers[k + 1]);
+				Best = j;
 			}
 		}
-		j++;
+
+		if (i != Best)
+		{
+			Swap(Numbers[i], Numbers[Best]);
+		}
 	}
 }
 
@@ -34,12 +39,8 @@ int main()
 	int Number2 = 3;
 	Swap(Number1, Number2);
 
-	int Numbers[] = { 1, 7, 45, 10, 29, 31 };
+	int Numbers[] = { 15, 7, 45, 10, 29, 31 };
 	Sort(Numbers, sizeof(Numbers) / sizeof(int));
 
-	for (int i = 0; i < sizeof(Numbers) / sizeof(int); i++)
-	{
-		cout << Numbers[i] << endl;
-	}
 	return 0;
 }
